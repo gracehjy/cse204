@@ -1,0 +1,186 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+body {
+    font-family: "Google Sans", sans-serif;
+    color: #181f39;
+    background-color: #fbf8f0;
+}
+
+p {
+    font-size: 1.1rem;
+}
+
+.intro {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    text-align: center;
+    line-height: 1;
+    color:#fbf8f0;
+}
+
+.intro h1 {
+    font-size: 30vw;
+}
+
+.intro p {
+    font-style: italic;
+    letter-spacing: 0.5px;
+}
+
+a {
+    text-decoration: none;
+    color: #181f39;
+    font-weight: bold;
+}
+
+a:hover {
+    color: #424a67;
+}
+
+section {
+    margin: 5% 15%;
+    line-height: 1.75;
+}
+
+section h2 {
+    font-size: 2rem;
+    color:rgb(255, 188, 72);
+}
+
+header img {
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    position: relative;
+}
+
+ol {
+    font-size: 1.1rem;
+    margin-bottom: 5%;
+}
+
+.imageSlideshow img {
+    width: 450px;
+    height: 300px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 5px;
+}
+
+@media (max-width: 650px) {
+    .imageSlideshow img {
+        width: 100%;
+        height: 250px;
+    }
+
+    .food_images img {
+        width: 100%;
+    }
+}
+
+.imageSlideshow {
+    position: relative;
+    margin: auto;
+    max-width: 650px;
+}
+
+.myImages {
+    display: none;
+}
+
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-weight: bold;
+    padding: 10px;
+    color: #333;
+    font-size: 1.1rem;
+    transition: 0.3s ease;
+    background-color: rgb(255, 188, 72);
+}
+
+.next {
+    right: 0;
+}
+
+.prev:hover, .next:hover {
+    background-color:rgb(255, 169, 19);
+}
+
+table, td, th {
+    border: 1.25px solid;
+    padding: 20px;
+}
+
+table {
+    border-collapse: collapse;
+    margin: 3.5% auto 5% auto;
+}
+
+.food_images img {
+    max-width: 100%;
+    width: 450px;
+    height: 300px;
+    border-radius: 5px;
+}
+
+.food_images {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.rec_form {
+    margin: 3.5% auto 5% auto;
+    padding: 40px;
+    background-color:#323952;
+    border-radius: 5px;
+    width: max-content;
+    max-width: 100%;
+    color: white;
+}
+
+#rec, #why {
+    border: none;
+    padding: 10px;
+    width: 100%;
+    border-radius: 5px;
+    margin-bottom: 16px;
+}
+
+#spot {
+    margin-bottom: 16px;
+}
+
+#submit {
+    width: 100%;
+    padding: 7px;
+    background-color: rgb(255, 188, 72);
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+#submit:hover {
+    background-color:rgb(255, 169, 19);
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+footer {
+    background-color: rgb(255, 188, 72);
+    padding: 20px;
+    text-align: center;
+    margin-top: 5%;
+}
