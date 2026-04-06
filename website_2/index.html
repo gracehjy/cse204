@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>kept</title>
+</head>
+<body>
+    <header>
+        <p>kept.</p>
+    </header>
+    <div class="date-info">
+        <div id="date"></div>
+        <div id="time"></div>
+        <div id="weather">
+            <div id="temp"></div>
+            <div id="location"></div>
+        </div>
+    </div>
+    <hr>
+
+    <div class="main-content">
+
+        <div class="archive-section">
+            <p class="section-label">archives</p>
+            <button class="arrow-btn" id="prev-entry">&#8249;</button>
+            <div class="archive-stack">
+                <div class="entry-card shadow"></div>
+                <div class="entry-card active">
+                    <span class="entry-date"></span>
+                </div>
+                <div class="entry-card shadow"></div>
+            </div>
+            <button class="arrow-btn" id="next-entry">&#8250;</button>
+        </div>
+
+        <div class="canvas-section">
+            <p class="section-label">what are you thinking about today?</p>
+            <div class="canvas-row">
+                <div class="color-picker">
+                    <button class="color-swatch" style="background:#ffffff;" data-color="#ffffff"></button>
+                    <button class="color-swatch" style="background:#7B2FBE;" data-color="#7B2FBE"></button>
+                    <button class="color-swatch" style="background:#2F5FBE;" data-color="#2F5FBE"></button>
+                    <button class="color-swatch" style="background:#2FAD5F;" data-color="#2FAD5F"></button>
+                    <button class="color-swatch" style="background:#F0A020;" data-color="#F0A020"></button>
+                    <button class="color-swatch" style="background:#D03030;" data-color="#D03030"></button>
+                    <button class="color-swatch" style="background:#3A3228;" data-color="#3A3228"></button>
+                    <button class="color-swatch" style="background:#000000;" data-color="#000000"></button>
+                </div>
+                <!-- canvas api -->
+                <canvas id="drawing-canvas"></canvas> 
+            </div>
+            <div class="canvas-buttons">
+                <button class="icon-btn" id="undo-btn">&#8617;</button>
+                <button class="submit-btn" id="submit-entry">submit entry</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script> 
+</body>
+</html>
