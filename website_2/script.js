@@ -16,14 +16,25 @@ window.addEventListener('load', () => updateDateTime());
 setInterval(updateDateTime, 1000); // update datetime every second
 
 // use weather api to get current temperature in st louis
-navigator.geolocation.getCurrentPosition(async (position) => {
-    const { latitude, longitude } = position.coords;
-    const response = await fetch(`https://cse2004.com/api/weather?latitude=${latitude}&longitude=${longitude}`);
-    const weather = await response.json();
-    document.getElementById('temp').textContent = `${weather.temperature.degrees}°F`;
-    document.getElementById('location').textContent = `St. Louis, MO`;
-});
-
+navigator.geolocation.getCurrentPosition(
+    async (position) => {
+        try {
+            const { latitude, longitude } = position.coords;
+            const response = await fetch(`https://cse2004.com/api/weather?latitude=${latitude}&longitude=${longitude}`);
+            const weather = await response.json();
+            document.getElementById('temp').textContent = `${weather.temperature.degrees}°F`;
+            document.getElementById('location').textContent = `St. Louis, MO`;
+        } catch (err) {
+            document.getElementById('temp').textContent = 'unavailable';
+            document.getElementById('location').textContent = 'weather data could not be loaded';
+        }
+    }, 
+    (err) => {
+        // geolocation denied or failed
+        document.getElementById('temp').textContent = '';
+        document.getElementById('location').textContent = 'enable location for weather';
+    }
+);
 
 // canvas stuff (using canvas api)
 const canvas = document.getElementById('drawing-canvas');
@@ -38,7 +49,13 @@ prevColorBtn.style.border = "1.5px solid #7F715D";
 prevColorBtn.style.width = "28px";
 prevColorBtn.style.height = "28px";
 
-// resize based on window size
+// canvas api error check
+if (!ctx) {
+    document.querySelector('.canvas-section').innerHTML = 
+        '<p style="color:#7F715D; font-size:0.9rem;">your browser does not support the canvas element</p>';
+}
+
+// resize canvas based on window size
 function resizeCanvas() {
     const rect = canvas.getBoundingClientRect();
     canvas.width = rect.width;
@@ -94,12 +111,12 @@ document.getElementById('undo-btn').addEventListener('click', () => {
 
 document.getElementById('submit-entry').addEventListener('click', () => {
     const entry = {
-        date: new Date(),
+        date: new Date().toISOString(),
         image: canvas.toDataURL('image/png'),
     };
 
     archivedDrawings.push(entry);
-    localStorage.setItem('kept-entries', JSON.stringify(archivedDrawings));
+    saveEntries();
     currentIndex = archivedDrawings.length - 1;
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -109,10 +126,31 @@ document.getElementById('submit-entry').addEventListener('click', () => {
 });
 
 // archive logic (aka an array that keeps track of entries)
-let archivedDrawings = JSON.parse(localStorage.getItem('kept-entries') || '[]'); // empty if 'kept-entries' isn't in local storage
+let archivedDrawings = loadEntries();
 let currentIndex = archivedDrawings.length - 1;
 
-function formatDate(date) {
+// load entries from local storage
+function loadEntries() {
+    try {
+        return JSON.parse(localStorage.getItem('kept-entries') || '[]');
+    } catch (err) {
+        document.querySelector('.archive-section').innerHTML = 
+            '<p style="color:#7F715D; font-size:0.9rem;">unable to load archives</p>';
+        return [];
+    }
+}
+
+// save entry into local storage
+function saveEntries() {
+    try {
+        localStorage.setItem('kept-entries', JSON.stringify(archivedDrawings));
+    } catch (err) {
+        alert('Your entry could not be saved. Storage may be full or disabled.');
+    }
+}
+
+function formatDate(dateString) {
+    const date = new Date(dateString)
     const month = date.getMonth() + 1;
     const monthDay = date.getDate();
     const year = date.getFullYear();
